@@ -6,3 +6,10 @@ There are some trees, where each tree is represented by (x,y) coordinate in a tw
 - Output: [[1,1],[2,0],[4,2],[3,3],[2,4]]
 - Explanation:
 ![img](https://assets.leetcode.com/uploads/2018/10/12/erect_the_fence_1.png)
+
+Note:
+- All trees should be enclosed together. You cannot cut the rope to enclose trees that will separate them in more than one group.
+- All input integers will range from 0 to 100.
+- The garden has at least one tree.
+- All coordinates are distinct.
+- Input points have NO order. No order required for output.
