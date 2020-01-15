@@ -10,14 +10,42 @@ public class Main {
      */
 
     public static int[] maxProduct(double[] x) {
-        // TO BE IMPLEMENTED
+        double[] tmp = new double[x.length];
+        tmp[0] = x[0];
+
+        double ans = tmp[0];
+        int i = 0;
+        int j = 0;
+        int start = 0;
+
+        for(int a = 1; a<x.length; a++) {
+            tmp[a] = Math.max(x[a], tmp[a-1]*x[a]);
+            if(tmp[a-1]*x[a] < x[a]) {
+                start = a;
+            }
+
+            if(tmp[a]>ans) {
+                ans = tmp[a];
+                if(tmp[a-1]*x[a]>x[a]) {
+                    i = start;
+                    j = a;
+                } else {
+                    i = a;
+                    j = a;
+                }
+            }
+        }
+
+        int[] output = new int[2];
+        output[0] = i;
+        output[1] = j;
+        return output; // output = {i,j}
     }
 
-    public static int maxProductBrute(double[] x) {
-        int max = -1;
-
+    public static double maxProductBrute(double[] x) {
+        double max = -1;
         for (int i = 0; i < x.length; i++) {
-            int cur = 1;
+            double cur = 1;
             for (int j = i; j < x.length; j++) {
                 cur *= x[j];
                 max = Math.max(max, cur);
@@ -33,16 +61,18 @@ public class Main {
     public static void test(double... x) {
         //System.out.println(Arrays.toString(x));
         int[] returned = maxProduct(x);
-        int expected = maxProductBrute(x);
-        int ans = 1;
+        double expected = maxProductBrute(x);
+        double ans = 1;
         for (int i = returned[0]; i <= returned[1]; i++) {
             ans *= x[i];
         }
         if (ans == expected) {
-            //System.out.println("PASSED");
+//            System.out.println("PASSED");
         } else {
+            System.out.println(Arrays.toString(x));
             System.out.println("expected product: " + expected);
             System.out.println("returned: " + Arrays.toString(returned));
+            System.exit(1);
         }
 
     }
