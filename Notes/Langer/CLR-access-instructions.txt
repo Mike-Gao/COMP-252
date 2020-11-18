@@ -1,0 +1,10 @@
+To access an electronic version of the CLR book via the McGill
+library, click on the Cormen, Leiserson, Rivest (CLR) link.
+
+As stated on Prakash'es 251 web page...
+
+"The book comes from an e-book provider, books24x7 which requires one
+to register an account in order to open its e-books. You need to enter
+your McGill e-mail and then you will receive the password in your
+McGill email. After that, you could login this book with your McGill
+email and the password received."
