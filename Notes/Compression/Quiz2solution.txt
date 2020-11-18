@@ -1,0 +1,72 @@
+1 a)     Either of the following:
+
+         1100101111100110
+	 0011010000011001
+
+         1,2,5,7,8,9,10,11,14,15
+	 3,4,6,12,13,16
+
+  b)    Gap lengths:   
+ 
+         1,1,3,2,1,1,1,1,3,1
+	 3,1,2,6,1,3
+
+    MARKING SCHEME:  one point for each.
+
+2.)   Take directly from lecture notes.
+
+
+3.) a)    a,b,a,aa,ba,bab,b
+
+       length  offset/new
+        0	a
+	0	b
+	1	2
+	2	1
+	2	4
+	3	2
+	1	1
+
+   b)  totbits depends on the number of bits used for each phrase but
+ 	also on the number of phrases phi(n).   As n increases,  the
+	number of symbols in each phrase increases as well, since
+	more phrases have been seen in the past and hence the chance of
+	matching to a longer phrase is greater.  The key observation
+	is that phi(n) increases very slowly with n, and counteracts the
+	growth of log i with n
+
+   c)   sum_i (log i + log N),  rather than sum_i (log i + 1)
+        To improve further, we could use a variable length code to say
+	what the new symbol is, instead of a fixed length code with	
+	log N bits.     
+
+    MARKING SCHEME:  two  points for (a), one for (b), two for (c).
+
+4.)  a)   p(X_2 |  X_j = 1)  =  [ 1/8   5/8   2/8]
+	
+     b)   p(X_2 = 1, X_3 = 1 | X_1 = 3)
+         = p(X_3 = 1 | X_2 = 1) * p(x_2 = 1 | X_1 = 3)
+         =  (6/8) * (1/8)
+
+    MARKING SCHEME:  one point for each.
+
+5.)  a)   k = 112
+
+     b)  p(X_k+1  |  X_k = a)  =  [4/19  15/19]
+
+         Some students gave answer [4/20  15/20].   I took off half a point
+         unless student clarified why  the probabilities add up to 19/20
+         instead of 20/20.   Note I did not ask for probabilities of the
+         next thing that is encoded (including ESCAPE or EOF)  but rather
+         probabilities of next element in the sequence.  
+         My apologies if you find this annoying..  I am not entirely 
+	comfortable taking off the half point.
+
+     c)  [3/13  10/13]
+
+     d)   The current context is ...ba_____
+
+          Using ppm,  the encoder sends "a ESC a" to encode the next two
+          symbols (aa).
+
+     MARKING SCHEME:  one point for each.         

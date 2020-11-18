@@ -1,0 +1,199 @@
+Final Exam Solutions
+
+---------------- Question 1 ---------------------
+
+a)   The most probable sequence is  000.   The tag is 125/1024.
+
+b)   The least probable sequence is  111.   The tag is 997/1024.
+
+Note:  you didn't need to go through the l_k,u_k computation
+for (a) and (b) since the sequences were the first and last
+of the eight possible.  If you understand how the cumulative
+distribution works, then you only needed to compute the probability
+of the two sequences and work from there.   i.e. for (a),
+p(000) = F(000) = 125/512,  so T(000) = (0 + 125/512) / 2.
+Similarly for (b),  T(111) =  (1 + 1 - (3/8)^3) / 2.
+
+c)  Here you need to compute l_k and u_k.   You get
+    (l_3, u_3)  = (200/512,   275/512)  so T(x) = 475/1024
+    which in binary is .0111011011
+
+    Also, since p(x) = 75/512,  we conclude there are 4 bits
+    so C(x) = 0111
+
+MARKING SCHEME.   
+
+1 points for each of (a),(b) and 5 points for (c).
+The 5 points for (c) are:  2 points for l_3,u_3,  1 point for p(x), 
+1 point for "4 bits", and 1 point for the tag T(x) in binary.
+   
+---------------- Question 2 ---------------------
+
+a)    ..., -12, -8, -4, 0, 4, 8, 12, ....
+
+b)    Rather than having infinitely many possible values, we would
+    only have a finite number.  For example, if N = 5, we would 
+    have  -8, -4, 0, 4, 8.
+
+c)   value to be coded       level       decoder's estimate
+     ----------------        -----       ------------------
+         25		      6 	   24
+        -5.9  (24-18.1)       -1           20
+        -8.7  (20-11.3)       -2           12
+
+d)   If we assume 25 is quantized then ...
+
+     value to be coded       level       decoder's estimate
+     ----------------        -----       ------------------
+         25		      		   24
+         6.1  (18.1-12)       2            20  (12 + 8)
+        -5.7  (11.3-10)       0            10  (10 + 0) 
+
+    ... but if we assume 25 is sent losslessly then (which is not
+        what I wanted, but which I suppose you could do !!!) ...
+
+e)   The answer I was looking for was:
+
+       sum_j  ( x_{j+1} - x_j / 2 )^2  <  sum_j  ( x_{j+1} - x_j)^2  
+
+MARKING SCHEME:
+
+   1 point for each of (a), (b).  3 points for (c,d).  1 point for e.
+   Some details:
+
+     c) 
+     If you assumed that the value 25 was encoded losslessly, then
+     then answer would be slightly different:
+
+      value to be coded       level       decoder's estimate
+     ----------------        -----       ------------------
+         25		      		   25
+        -6.9  (25-18.1)       -2           17  (25 - 8)
+        -5.7  (17-11.3)       -1           13  (17 - 4) 
+
+     d)
+     value to be coded       level       decoder's estimate
+     ----------------        -----       ------------------
+         25		       		   25
+         5.6  (18.1- 25/2)     1           16.5  (25/2 + 4 = 16.5)
+        3.05 (11.3- 16.5/2)    1           12.05  (10 + 0) 
+
+
+   e)  Some students noted that     sum_j  ( x_{j+1} - x_j)^2  would
+     be zero if each element of the sequence was half as great as
+     the previous element.  That's true, but this is far too specific.
+     I asked you to *characterize*, which means say something general.
+     I have 1/2 point for this.
+
+--------------Question 3------------------
+ 
+(a)  (2 marks)  
+     This was straightforward from the notes.  I expected everyone to get it.
+     I gave 2 marks for the 8 sketches, as long as the functions for k > 0
+     had positive and negative values.  (Some students drew them with positive
+     values only.)  
+
+(b)   (3 marks)
+
+This question was not easy.  It was meant to test who had understand what 
+the 2D DCT does.  
+
+If you compute the 2D DCT and round the numbers, you get:
+
+   570  -258   -13   107   -10   -56    -5    57
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0  
+
+Of course, I was not expecting exact numbers.  As I emphasized 
+in the question, I wanted a rough estimate only.
+
+MARKING SCHEME:  I gave 1 point if you wrote that the values
+are highest at the top left and lowest at the bottom right.  This
+is typically the case for general images, but it is not the case 
+for this particular image block, which has roughly the same values in
+each row.  The difference here is that  the rows have a different
+structure than the columns.  I wanted to see who recognized this
+and who could interpret it in terms of the DCT.
+
+I gave two points if you noted that the rows should be treated
+differently from columns and if you wrote that the values should fall 
+from left to right (rather than diagonally).
+
+I gave the full three points if you noticed that the values are
+approximately 0 in all rows except for the first. 
+
+(c)  JPEG uses differential coding for DC values because the DC
+values are approximately the same from one block to the next in
+typical images.  This was discussed in class.   JPEG doesn't
+use differential coding for AC values because AC values don't
+tend to be the same from one block to the next.   The implicit
+assumption that is being made about AC values is that they are
+uncorrelated - the same assumption is made both within and between
+blocks.  (This is the basic assumption made in all transform
+coding!)
+
+MARKING SCHEME:  1 point for DC.  1 point for AC.  I gave only .5
+point for AC if you said that AC values tend to be small.  
+
+-------------   QUESTION 4 ----------------------------------
+
+(a)  (4 points)
+
+- The audio signal is broken into small blocks, 32 samples each.
+
+- These 32 samples for each block j are transform coded by DCT
+to give 32 "Y_j(k)" coefficients.
+
+- For each k, the Y_j(k) are quantized using a Delta value.  The
+Delta value, Delta(k), is constant for 16 blocks (representing 512
+samples).    These Delta(k) values must be transmitted, along
+with the  levels, l_j(k) round( Y_j(k) / Delta(k) ),  to the decoder.
+
+- The decoder  takes the levels l_j(k),  multiplies by Delta(k), then
+applies the inverse DCT to get back the original signal.
+
+(b)  (3 points)
+
+Masking is a phenemonon in human hearing, whereby the presence
+of one sound component can prevent another from being heard.  
+
+Masking is frequency dependent.   Two sound components
+that have similar frequencies tend to mask each other more than 
+sound components that have different frequencies.   
+
+How is masking used in MP3?   Large blocks (512 samples) are analyzed for their frequency
+components and Delta values (for quantizing the DCT transformed small
+blocks) are chosen based on these components and an estimate of how 
+much they mask each other.
+
+MARKING SCHEME:  for (a) and (b), several students did not mention
+the use of blocks (small vs. large).   I gave only part marks
+for no mention of blocks. 
+
+(c)  (3 points)
+
+This question was more challenging.   
+I wanted to see if you understood the basics of MPEG, and if you could
+apply the concepts to a similar problem.    Details I was looking
+for include:
+
+-  MPEG breaks each image into blocks, and then looks for the best
+match from each block from a previously encoded frame.   It does so
+by sending an offset vector and a set of intensity differences.
+
+- The offset gives the location of the best match for the block in
+the previously encoded frame.  (Some students suggested the offset
+should point to a *block*.  But this is inapprpriate since there
+is no reason why the offset should align well with another entire
+block.)
+
+- To apply this concept to audio, suppose the left channel has been encoded and the right
+channel is to be encoded, given the left channel.  The right channel could be 
+partitioned into blocks, and each block could be encoded with an offset
+vector (right, relative to left)  and a difference vector. 
+    
